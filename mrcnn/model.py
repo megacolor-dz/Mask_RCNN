@@ -719,7 +719,7 @@ def refine_detections_graph(rois, probs, deltas, window, config):
         conf_keep = tf.where(class_scores >= config.DETECTION_MIN_CONFIDENCE)[:, 0]
         keep = tf.sets.set.intersection(tf.expand_dims(keep, 0),
                                         tf.expand_dims(conf_keep, 0))
-	keep = tf.sparse.to_dense(keep)[0]
+        keep = tf.sparse.to_dense(keep)[0]
 
     # Apply per-class NMS
     # 1. Prepare variables
