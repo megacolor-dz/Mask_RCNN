@@ -32,6 +32,11 @@ from mrcnn import utils
 #  Visualization
 ############################################################
 
+def is_dark(color):
+    rgb = tuple(int(255 * elem) for elem in color)
+    yiq = (rgb[0] * 2126 + rgb[1] * 7152 + rgb[2] * 722) / 10000
+    return yiq < 128
+
 def display_images(images, titles=None, cols=4, cmap=None, norm=None,
                    interpolation=None):
     """Display the given set of images, optionally with titles.
@@ -123,7 +128,6 @@ def display_instances(image, boxes, masks, class_ids, class_names,
     masked_image = image.astype(np.uint32).copy()
     for i in range(N):
         color = colors[i]
-        print('color =', color)
 
         # Bounding box
         if not np.any(boxes[i]):
@@ -145,7 +149,7 @@ def display_instances(image, boxes, masks, class_ids, class_names,
         else:
             caption = captions[i]
         ax.text(x1, y1 + 8, caption,
-                color='b', size=11, backgroundcolor=color)
+                color='w' if is_dark(color) else 'b', size=11, backgroundcolor=color)
 
         # Mask
         mask = masks[:, :, i]
