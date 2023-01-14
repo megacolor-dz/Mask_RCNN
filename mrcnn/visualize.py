@@ -144,7 +144,7 @@ def display_instances(image, boxes, masks, class_ids, class_names,
         else:
             caption = captions[i]
         ax.text(x1, y1 + 8, caption,
-                color='b', size=11, backgroundcolor=color")
+                color='b', size=11, backgroundcolor=color)
 
         # Mask
         mask = masks[:, :, i]
